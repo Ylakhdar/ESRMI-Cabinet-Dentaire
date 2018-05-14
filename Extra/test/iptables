@@ -1,0 +1,79 @@
+AuthUserFile C:/wamp64/www/test/.htpasswd
+AuthName "Accès protégé par mot de passe"
+AuthType Basic
+
+# Require valid-user
+
+# on peut autoriser l'acces uniquement a qlq user (apres auth) Ex : 
+<Limit GET POST> 
+require user Rachid 
+require user Youssef 
+</Limit>
+
+# Order définit l'ordre dans lequel on prendra en compte les directives deny et allow.
+Order Deny,Allow 
+Deny from all  //refuser
+Allow from 192.168.0.2 //permetre
+
+
+
+
+sudo iptables  //sinon sudo ap-get install iptables
+
+sudo iptables -P INPUT DROP 
+
+
+sudo vim parfeu.sh
+	#!/bin/sh
+
+	# on flush (netoyage de regles deja mises en place)
+	iptables - F
+
+	# Politiques  (on commence par tt bloquer / FORWARD = les paquets redirigés)
+	iptables -P OUTPUT DROP
+	iptables -P INPUT DROP
+	iptables -P FORWARD DROP 
+
+	#Connexion établie
+	iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+	iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+	# Autoriser le loopback
+	iptables -A INPUT -i lo -j ACCEPT
+	iptables -A OUTPUT -i lo -j ACCEPT
+	
+	#SSH
+	iptables -A INPUT -p tcp --dport 5789 -j ACCEPT 
+
+	#HTTP
+	iptables -A INPUT -p tcp --dport 80 -j ACCEPT 
+	iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT 
+
+	#HTTPS
+	iptables -A INPUT -p tcp --dport 443 -j ACCEPT 
+	iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT 
+
+
+//Pour recuperer les Port a ouvrir
+	sudo netstat --inet -npl  (n=numerique p=programme l=listen)
+//Pour lancer le script au demarage de serveur
+	sudo mv parefeu.sh /etc/init.d  //deplacer parfeu dans init
+	sudo mv parefeu.sh parfeu  //enlever l'extention
+	sudo chmod +x //rendre le fichier executable
+	sudo update-rc.d parfeu defaults //lancer au demarage du systeme
+//Pour Maj notre script 
+	sudo vim /etc/init.d/parfeu
+
+//Framework fail2ban 
+
+
+
+
+
+
+
+
+
+
+
+

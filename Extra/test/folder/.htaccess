@@ -1,0 +1,6 @@
+<Files file.php>
+AuthUserFile C:/wamp64/www/test/.htpasswd
+AuthName "Accès restreint"
+AuthType Basic
+require valid-user
+</Files>

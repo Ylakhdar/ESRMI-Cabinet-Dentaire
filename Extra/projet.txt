@@ -1,0 +1,5 @@
+1- architecture du projet => plus de securite (index isole a aprt et joue le role de router)
+2- les GET sont securisé contre les attaques XSS
+3- un framework a part entiere 
+4- utilisation d'un systeme modulaire (diviser pour regner)
+5- prob lors du passage de la modelisatin a la pratique 

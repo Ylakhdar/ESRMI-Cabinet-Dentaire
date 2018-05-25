@@ -11,12 +11,12 @@
     <!-- Partie de la barre masquée en fonction de la zone d'affichage -->
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <?php if (isset($client)): ?>
+            <?php if (isset($employe)): ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-user"></span> Bienvenue, <?= $this->nettoyer($client['prenom']) ?> <b class="caret"></b></a>
+                        <span class="glyphicon glyphicon-user"></span> Bienvenue, <?= $this->nettoyer($employe['prenom']) ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="client/">Informations personnelles</a></li>
+                        <li><a href="employe/">Informations personnelles</a></li>
                         <li class="divider"></li>
                         <li><a href="connexion/deconnecter">Se déconnecter</a></li>
                     </ul>

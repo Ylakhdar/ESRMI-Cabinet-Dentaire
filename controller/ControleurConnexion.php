@@ -1,7 +1,7 @@
 <?php
 
 require_once 'frame/Controleur.php';
-require_once 'model/Client.php';
+require_once 'model/Employe.php';
 
 /**
  * Contrôleur gérant la connexion au site
@@ -9,11 +9,11 @@ require_once 'model/Client.php';
  */
 class ControleurConnexion extends Controleur
 {
-    private $client;
+    private $employe;
 
     public function __construct()
     {
-        $this->client = new Client();
+        $this->employe = new Employe();
     }
 
     public function index()
@@ -23,18 +23,18 @@ class ControleurConnexion extends Controleur
 
     public function connecter()
     {
-        if ($this->requete->existeParametre("courriel") && $this->requete->existeParametre("mdp")) {
-            $courriel = $this->requete->getParametre("courriel");
+        if ($this->requete->existeParametre("matricule") && $this->requete->existeParametre("mdp")) {
+            $matricule = $this->requete->getParametre("matricule");
             $mdp = $this->requete->getParametre("mdp");
-            if ($this->client->connecter($courriel, $mdp)) {
-                $this->accueillirClient($courriel, $mdp);
+            if ($this->employe->connecter($matricule, $mdp)) {
+                $this->accueillirEmploye($matricule, $mdp);
             }
             else
-                $this->genererVue(array('msgErreur' => 'Client inconnu'),
+                $this->genererVue(array('msgErreur' => 'Employe inconnu'),
                         "index");
         }
         else
-            throw new Exception("Action impossible : courriel ou mot de passe non défini");
+            throw new Exception("Action impossible : matricule ou mot de passe non défini");
     }
 
     public function deconnecter()
@@ -47,34 +47,34 @@ class ControleurConnexion extends Controleur
     {
         if ($this->requete->existeParametre("nom") && $this->requete->existeParametre("prenom") &&
                 $this->requete->existeParametre("adresse") && $this->requete->existeParametre("codePostal") &&
-                $this->requete->existeParametre("ville") && $this->requete->existeParametre("courriel") &&
+                $this->requete->existeParametre("ville") && $this->requete->existeParametre("matricule") &&
                 $this->requete->existeParametre("mdp")) {
             $nom = $this->requete->getParametre("nom");
             $prenom = $this->requete->getParametre("prenom");
             $adresse = $this->requete->getParametre("adresse");
             $codePostal = $this->requete->getParametre("codePostal");
             $ville = $this->requete->getParametre("ville");
-            $courriel = $this->requete->getParametre("courriel");
+            $matricule = $this->requete->getParametre("matricule");
             $mdp = $this->requete->getParametre("mdp");
 
-            $this->client->ajouterClient($nom, $prenom, $adresse, $codePostal,
-                    $ville, $courriel, $mdp);
-            $this->accueillirClient($courriel, $mdp);
+            $this->employe->ajouterEmploye($nom, $prenom, $adresse, $codePostal,
+                    $ville, $matricule, $mdp);
+            $this->accueillirEmploye($matricule, $mdp);
         }
         else
             throw new Exception("Action impossible : tous les paramètres ne sont pas définis");
     }
 
     /**
-     * Enregistre un client connecté dans la session et redirige vers la page d'accueil
+     * Enregistre un employe connecté dans la session et redirige vers la page d'accueil
      * 
-     * @param type $courriel
+     * @param type $matricule
      * @param type $mdp
      */
-    private function accueillirClient($courriel, $mdp)
+    private function accueillirEmploye($matricule, $mdp)
     {
-        $client = $this->client->getClient($courriel, $mdp);
-        $this->requete->getSession()->setAttribut("client", $client);
+        $employe = $this->employe->getEmploye($matricule, $mdp);
+        $this->requete->getSession()->setAttribut("employe", $employe);
         $this->rediriger("accueil");
     }
 

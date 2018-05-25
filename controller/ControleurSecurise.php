@@ -3,21 +3,21 @@
 require_once 'ControleurPersonnalise.php';
 
 /**
- * Contrôleur abstrait pour les actions soumises à authentification du client
+ * Contrôleur abstrait pour les actions soumises à authentification du employe
  * 
  */
 abstract class ControleurSecurise extends ControleurPersonnalise
 {
 
     /**
-     * Redéfinition permettant de vérifier qu'un client est connecté
+     * Redéfinition permettant de vérifier qu'un employe est connecté
      * 
      * @param type $action
      */
     public function executerAction($action)
     {
-        // Si les infos client sont présentes dans la session ...
-        if ($this->requete->getSession()->existeAttribut("client")) {
+        // Si les infos employe sont présentes dans la session ...
+        if ($this->requete->getSession()->existeAttribut("employe")) {
             // ... l'action s'exécute normalement ...
             parent::executerAction($action);
         }

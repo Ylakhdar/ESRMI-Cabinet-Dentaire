@@ -1,3 +1,5 @@
+https://www.memoireonline.com/03/12/5572/Gestion-d-un-cabinet-medical-mise-en-place-d-un-logiciel-pour-la-gestion-dun-cabinet-medical.html
+
 1- architecture du projet => plus de securite (index isole a aprt et joue le role de router)
 2- les GET sont securisé contre les attaques XSS
 3- un framework a part entiere 

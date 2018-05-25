@@ -1,4 +1,10 @@
-<?php $this->titre = "Connexion"; ?>
+<?php 
+  $this->titre = "Connexion"; 
+  require_once 'model/Ville.php';
+  $ville = new Ville;
+  $listeVille  = $ville->getVille();
+
+?>
 
 <?php if (isset($msgErreur)) : ?>
     <div class="alert alert-danger alert-dismissable">
@@ -6,7 +12,7 @@
         <strong>Erreur !</strong> <?= $this->nettoyer($msgErreur) ?>
     </div>
 <?php endif; ?>
-<h2 class="text-center">Identification client</h2>
+<h2 class="text-center">Identification</h2>
 <div class="well">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
@@ -21,7 +27,7 @@
             <form class="form-signin form-horizontal" role="form" action="connexion/connecter" method="post">
                 <div class="form-group">
                     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                        <input name="courriel" type="email" class="form-control" placeholder="Entrez votre courriel" required autofocus>
+                        <input name="matricule" type="text" class="form-control" placeholder="Entrez votre Matricule" required autofocus>
                     </div>
                 </div>
                 <div class="form-group">
@@ -43,42 +49,69 @@
                         <p class="form-control-static">Tous les champs sont obligatoires.</p>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Nom</label>
                     <div class="col-sm-6 col-md-4">
                         <input name="nom" type="text" class="form-control" required autofocus>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Prénom</label>
                     <div class="col-sm-6 col-md-4">
                         <input name="prenom" type="text" class="form-control" required>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Adresse</label>
                     <div class="col-sm-6 col-md-4">
                         <input name="adresse" type="text" class="form-control" required>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Code postal</label>
                     <div class="col-sm-3 col-md-2">
                         <input name="codePostal" type="text" class="form-control" required>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Ville</label>
                     <div class="col-sm-6 col-md-4">
-                        <input name="ville" type="text" class="form-control" required>
+                        <input list="ville" name="ville" type="text" class="form-control" required>
+                          <datalist id="ville">
+                            <?php foreach ($listeVille as $villes){
+                              echo '<option value="'.$villes['nomVille'].'"/>';    
+                            }                       
+                            ?>
+                          </datalist>    
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-5 control-label">Date de Naissance</label>
+                    <div class="col-sm-3 col-md-2">
+                        <input name="dateNaissance" type="date" class="form-control" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Courriel</label>
                     <div class="col-sm-6 col-md-4">
                         <input name="courriel" type="email" class="form-control" required>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 col-md-5 control-label">Telephone</label>
+                    <div class="col-sm-6 col-md-4">
+                        <input type="tel" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" class="form-control" name="Telephone" required>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Mot de passe</label>
                     <div class="col-sm-6 col-md-4">

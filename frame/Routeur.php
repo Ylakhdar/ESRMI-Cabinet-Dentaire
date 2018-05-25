@@ -6,9 +6,6 @@ require_once 'Vue.php';
 
 /**
  * Classe de routage des requêtes entrantes.
- * Inspirée du frame PHP de Nathan Davison
- * (https://github.com/ndavison/Nathan-MVC)
- * 
  */
 class Routeur
 {

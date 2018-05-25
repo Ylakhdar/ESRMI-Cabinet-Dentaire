@@ -1,3 +1,4 @@
+<?php  require_once "_Commun/infoClient.php"; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,20 +10,21 @@
         <!-- Feuilles de style -->
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="include/style.css">
+        <link rel="stylesheet" href="include/style_footer.css">
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="include/img/favicon.png">
 
+        <!-- Fontawesome -->
+        <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+
         <!-- Titre -->
-        <title>PHP Music Store - <?= $titre ?></title>
+        <title><?= $titreProjet.'-'. $titre ?></title>
     </head>
     <body>
         <div class="container">
             <?= $contenu ?>
-
-            <footer class="well well-sm">
-                <p class="text-center">Le PHP Music Store est un site à vocation pédagogique construit avec PHP, HTML5, CSS et Bootstrap.</p>
-            </footer>
+            <?php require_once 'footer.php'; ?>
         </div>
         
         <!-- jQuery -->

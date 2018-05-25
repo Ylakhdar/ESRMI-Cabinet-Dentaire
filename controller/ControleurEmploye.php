@@ -1,23 +1,23 @@
 <?php
 
 require_once 'ControleurSecurise.php';
-require_once 'model/Client.php';
+require_once 'model/Employe.php';
 
 /**
- * Contrôleur des actions liées au client
+ * Contrôleur des actions liées aus employes
  * 
  */
-class ControleurClient extends ControleurSecurise
+class ControleurEmploye extends ControleurSecurise
 {
-    private $client;
+    private $employe;
 
     public function __construct()
     {
-        $this->client = new Client();
+        $this->employe = new Employe();
     }
 
     /**
-     * Affiche la page de modification des infos client
+     * Affiche la page de modification des infos employe
      */
     public function index()
     {
@@ -25,9 +25,9 @@ class ControleurClient extends ControleurSecurise
     }
 
     /**
-     * Modifie les infos client
+     * Modifie les infos employe
      * 
-     * @throws Exception S'il manque des infos clients
+     * @throws Exception S'il manque des infos employes
      */
     public function modifier()
     {
@@ -35,6 +35,7 @@ class ControleurClient extends ControleurSecurise
                 $this->requete->existeParametre("adresse") && $this->requete->existeParametre("codePostal") &&
                 $this->requete->existeParametre("ville") && $this->requete->existeParametre("courriel") &&
                 $this->requete->existeParametre("mdp")) {
+
             $nom = $this->requete->getParametre("nom");
             $prenom = $this->requete->getParametre("prenom");
             $adresse = $this->requete->getParametre("adresse");
@@ -42,14 +43,14 @@ class ControleurClient extends ControleurSecurise
             $ville = $this->requete->getParametre("ville");
             $courriel = $this->requete->getParametre("courriel");
             $mdp = $this->requete->getParametre("mdp");
-
-            $client = $this->requete->getSession()->getAttribut("client");
-            $idClient = $client['idClient'];
-            $this->client->modifierClient($idClient, $nom, $prenom, $adresse, $codePostal,
+            
+            $employe = $this->requete->getSession()->getAttribut("employe");
+            $idEmploye = $employe['idEmploye'];
+            $this->employe->modifierEmploye($idEmploye, $nom, $prenom, $adresse, $codePostal,
                     $ville, $courriel, $mdp);
             
-            $client = $this->client->getClientParId($idClient);
-            $this->requete->getSession()->setAttribut("client", $client);
+            $employe = $this->employe->getEmployeParId($idEmploye);
+            $this->requete->getSession()->setAttribut("employe", $employe);
             $this->genererVue();
         }
         else

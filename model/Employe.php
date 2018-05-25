@@ -1,6 +1,6 @@
 <?php
 
-require_once '../frame/Modele.php';
+require_once 'frame/Modele.php';
 
 /**
  * Services liés aux Employe
@@ -34,17 +34,54 @@ class Employe extends Modele
             array($nom, $prenom, $dateNaissance, $adresse, $telephone, $email, $matricule, $login, $hashed_password, $poste, $specialite, $dateEmbauche, $dateDepart, $idVille));
     }
 
+     /**
+     * Modifie un employe existant
+     *
+     * @param type $idEmploye
+     * @param type $nom
+     * @param type $prenom
+     * @param type $adresse
+     * @param type $codePostal
+     * @param type $ville
+     * @param type $courriel
+     * @param type $mdp
+     */
+
+    public function modifierEmploye( $nom, $prenom, $dateNaissance, $adresse, $telephone, $email, $matricule, $login, $mdp, $poste, $specialite, $dateEmbauche, $dateDepart, $idVille)
+    {
+        $sql = "update employe set  nom=?, prenom=?, dateNaissance=?, adresse=?, telephone=?, email=?, matricule=?, login=?, mdp=?, poste=?, specialite=?, dateEmbauche=?, dateDepart=?, idVille =?";
+        $this->executerRequete($sql,
+            array($nom, $prenom, $dateNaissance, $adresse, $telephone, $email, $matricule, $login, $mdp, $poste, $specialite, $dateEmbauche, $dateDepart, $idVille));
+    }
+     /**
+     * Vérifie q'un emplolye existe dans la BD
+     * 
+     * @param type $matricule
+     * @param type $mdp
+     * @return type
+     */
+    public function connecter($matricule, $mdp)
+    {
+    $sql = "select idEmploye from employe where matricule=?";
+        $employe = $this->executerRequete($sql,array($matricule));
+        if ($employe->rowCount() == 1){
+            $user = $employe->fetch(PDO::FETCH_ASSOC);
+            return(password_verify($mdp, $user['mdp']));
+        }
+    } 
+
     /**
      * Renvoie les infos sur un employe
-     * @param type $courriel
+     * @param type $matricule
      * @param type $mdp
      * @return type
      * @throws Exception
      */
-    public function getEmploye($login,$mdp)
+
+    Public function getEmploye($matricule,$mdp)
     {
-        $sql     = "select * from employe where login=?";
-        $employe = $this->executerRequete($sql,array($login));
+        $sql     = "select * from employe where matricule=?";
+        $employe = $this->executerRequete($sql,array($matricule));
         if ($employe->rowCount() == 1){
             $user = $employe->fetch(PDO::FETCH_ASSOC);
             if (password_verify($mdp, $user['mdp']))
@@ -53,7 +90,7 @@ class Employe extends Modele
             throw new Exception("Aucun employe ne correspond aux infos fournies (mdp).");
         }
         else
-            throw new Exception("Aucun client ne correspond aux identifiants fournis");
+            throw new Exception("Aucun employe ne correspond aux identifiants fournis");
     }
 
     /**
@@ -75,27 +112,4 @@ class Employe extends Modele
         }
 
     }
-
-    
-
-    /**
-     * Modifie un employe existant
-     *
-     * @param type $idEmploye
-     * @param type $nom
-     * @param type $prenom
-     * @param type $adresse
-     * @param type $codePostal
-     * @param type $ville
-     * @param type $courriel
-     * @param type $mdp
-     */
-    public function modifierEmploye($idEmploye, $nom, $prenom, $adresse, $codePostal, $ville, $courriel, $mdp)
-    {
-        $sql = "update T_CLIENT set CLI_NOM=?, CLI_PRENOM=?, CLI_ADRESSE=?, CLI_CP=?,
-            CLI_VILLE=?, CLI_COURRIEL=?, CLI_MDP=? where CLI_ID=?";
-        $this->executerRequete($sql,
-            array($nom, $prenom, $adresse, $codePostal, $ville, $courriel, $mdp, $idEmploye));
-    }
-
 }

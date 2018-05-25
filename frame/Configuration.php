@@ -2,8 +2,6 @@
 
 /**
  * Classe de gestion des paramètres de configuration.
- * Inspirée du SimpleFramework de Frédéric Guillot
- * (https://github.com/fguillot/simpleFramework)
  */
 class Configuration
 {
@@ -38,9 +36,9 @@ class Configuration
     private static function getParametres()
     {
         if (self::$parametres == null) {
-            $cheminFichier = "../config/dev.ini";
+            $cheminFichier = "config/dev.ini";
             if (!file_exists($cheminFichier)) {
-                $cheminFichier = "../config/prod.ini";
+                $cheminFichier = "config/prod.ini";
             }
             if (!file_exists($cheminFichier)) {
                 throw new Exception("Aucun fichier de configuration trouvé");

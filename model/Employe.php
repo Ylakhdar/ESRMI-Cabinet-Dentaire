@@ -62,12 +62,18 @@ class Employe extends Modele
      */
     public function connecter($matricule, $mdp)
     {
-    $sql = "select idEmploye from employe where matricule=?";
-        $employe = $this->executerRequete($sql,array($matricule));
+    $sql = "select mdp from employe where matricule=?";
+    $employe = $this->executerRequete($sql,array($matricule));
         if ($employe->rowCount() == 1){
             $user = $employe->fetch(PDO::FETCH_ASSOC);
-            return(password_verify($mdp, $user['mdp']));
+            if (password_verify($mdp, $user['mdp']))
+                return true;
+            else 
+            throw new Exception("Aucun employe ne correspond à l'identifiant fourni / Mot de passe errone.");
         }
+        // Matricule en double erreur d'enregistrement
+        else 
+            throw new Exception("Aucun employe ne correspond à l'identifiant fourni_Matricule en double."); 
     } 
 
     /**
@@ -87,10 +93,10 @@ class Employe extends Modele
             if (password_verify($mdp, $user['mdp']))
                 return  $user;
             else
-            throw new Exception("Aucun employe ne correspond aux infos fournies (mdp).");
+            throw new Exception("Aucun employe ne correspond aux infos fournies_Mot de passe errone.");
         }
         else
-            throw new Exception("Aucun employe ne correspond aux identifiants fournis");
+            throw new Exception("Aucun employe ne correspond aux identifiants fournis_Matricule en double.");
     }
 
     /**

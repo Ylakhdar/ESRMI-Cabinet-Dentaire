@@ -220,7 +220,7 @@ CREATE TABLE `rdv` (
   `dateRdv` date NOT NULL,
   `hrDebut` time NOT NULL,
   `hrFin` time NOT NULL,
-  `etat` enum('HONORÉ','ANNULÉ','REPORTÉ') NOT NULL,
+  `etat` enum('prevu','clos sans suite','clos','en cours') NOT NULL,
   `motif` varchar(100) DEFAULT NULL,
   `idPatient` int(10) UNSIGNED NOT NULL,
   `idDocteur` int(10) UNSIGNED NOT NULL,

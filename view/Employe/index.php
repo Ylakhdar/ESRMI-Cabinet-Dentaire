@@ -1,5 +1,5 @@
 <?php
-$prenomNom = $this->nettoyer($client['prenom']) . ' ' . $this->nettoyer($client['nom']);
+$prenomNom = $this->nettoyer($employe['prenom']) . ' ' . $this->nettoyer($employe['nom']);
 $this->titre = $prenomNom;
 ?>
 
@@ -7,47 +7,47 @@ $this->titre = $prenomNom;
 
 <h2 class="text-center">Informations personnelles de <?= $prenomNom ?></h2>
 <div class="well">
-    <form class="form-horizontal" role="form" action="client/modifier" method="post">
+    <form class="form-horizontal" role="form" action="employe/modifier" method="post">
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Nom</label>
             <div class="col-sm-6 col-md-4">
-                <input name="nom" type="text" class="form-control" required value="<?= $this->nettoyer($client['nom']) ?>">
+                <input name="nom" type="text" class="form-control" required value="<?= $this->nettoyer($employe['nom']) ?>">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Prénom</label>
             <div class="col-sm-6 col-md-4">
-                <input name="prenom" type="text" class="form-control" required value="<?= $this->nettoyer($client['prenom']) ?>">
+                <input name="prenom" type="text" class="form-control" required value="<?= $this->nettoyer($employe['prenom']) ?>">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Adresse</label>
             <div class="col-sm-6 col-md-4">
-                <input name="adresse" type="text" class="form-control" required value="<?= $this->nettoyer($client['adresse']) ?>">
+                <input name="adresse" type="text" class="form-control" required value="<?= $this->nettoyer($employe['adresse']) ?>">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Code postal</label>
             <div class="col-sm-3 col-md-2">
-                <input name="codePostal" type="text" class="form-control" required value="<?= $this->nettoyer($client['codePostal']) ?>">
+                <input name="codePostal" type="text" class="form-control" required value="<?= $this->nettoyer($employe['codePostal']) ?>">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Ville</label>
             <div class="col-sm-6 col-md-4">
-                <input name="ville" type="text" class="form-control" required value="<?= $this->nettoyer($client['ville']) ?>">
+                <input name="ville" type="text" class="form-control" required value="<?= $this->nettoyer($employe['ville']) ?>">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Courriel</label>
             <div class="col-sm-6 col-md-4">
-                <input name="courriel" type="email" class="form-control" required value="<?= $this->nettoyer($client['courriel']) ?>">
+                <input name="courriel" type="email" class="form-control" required value="<?= $this->nettoyer($employe['courriel']) ?>">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-4 col-md-5 control-label">Mot de passe</label>
             <div class="col-sm-6 col-md-4">
-                <input name="mdp" type="password" class="form-control" required value="<?= $this->nettoyer($client['motDePasse']) ?>">
+                <input name="mdp" type="password" class="form-control" required value="<?= $this->nettoyer($employe['motDePasse']) ?>">
             </div>
         </div>
         <div class="form-group">

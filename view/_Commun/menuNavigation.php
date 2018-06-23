@@ -4,7 +4,7 @@
     <div class="panel-heading">Genres musicaux</div>
     <!-- List group -->
     <div class="list-group">
-        <?php foreach ($genres as $genre): ?>
+<!--         <?php foreach ($genres as $genre): ?>
             <?php
             $estSelectionne = false;
             if (isset($genreSelectionne) && ($genreSelectionne['id'] == $genre['id'])) {
@@ -14,7 +14,7 @@
             <a class="list-group-item <?= $estSelectionne ? 'active' : '' ?>" href="navigation/index/<?= $this->nettoyer($genre['id']) ?>">
                 <?= $this->nettoyer($genre['nom']) ?> <span class="badge pull-right"><?= $this->nettoyer($genre['nbAlbums']) ?></span>
             </a>                              
-        <?php endforeach; ?>
+        <?php endforeach; ?> -->
     </div>
 </div>
 

@@ -72,13 +72,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-4 col-md-5 control-label">Code postal</label>
-                    <div class="col-sm-3 col-md-2">
-                        <input name="codePostal" type="text" class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label class="col-sm-4 col-md-5 control-label">Ville</label>
                     <div class="col-sm-6 col-md-4">
                         <input list="ville" name="ville" type="text" class="form-control" required>

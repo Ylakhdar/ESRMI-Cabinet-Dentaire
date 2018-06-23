@@ -5,48 +5,32 @@ require_once 'frame/Modele.php';
 /**
  * Services liés aux paniers
  */
-class Panier extends Modele
+class Patient extends Modele
 {
 
-    public function getArticles($idClient)
+    /**
+     * Description
+     * @param type $dateCreation 
+     * @param type $sexe 
+     * @param type $nomPatient 
+     * @param type $pernomPatient 
+     * @param type $dateNaissancePatient 
+     * @param type $adressePatient 
+     * @param type $telephonePatient 
+     * @param type $emailPatient 
+     * @param type $cinPatient 
+     * @param type $Allergie 
+     * @param type $note 
+     * @param type $idVille 
+     * @param type $idAssurance 
+     * @return void
+     */
+    public function ajouterPatient($dateCreation,$sexe,$nomPatient,$pernomPatient,$dateNaissancePatient,$adressePatient,$telephonePatient,$emailPatient,$cinPatient,$Allergie,$note,$assureur,$police,$idVille)
     {
-        $sql = "select ARTPAN_ID as id, AP.ALB_ID as idAlbum, CLI_ID as idClient, ARTPAN_QUANTITE as quantite,
-            ALB_PRIX as prixAlbum, ALB_PRIX*ARTPAN_QUANTITE as prixTotal,
-            ALB_NOM as nomAlbum from T_ARTICLE_PANIER AP join T_ALBUM ALB on AP.ALB_ID=ALB.ALB_ID where CLI_ID=?
-            order by ALB_NOM";
-        return $this->executerRequete($sql, array($idClient));
-    }
-
-    public function getNbArticles($idClient)
-    {
-        $sql = "select count(ARTPAN_ID) as nbArticles from T_ARTICLE_PANIER where CLI_ID=?";
-        $resultat = $this->executerRequete($sql, array($idClient));
-        $ligne = $resultat->fetch();
-        return $ligne['nbArticles'];
-    }
-
-    public function getPrixTotal($idClient) {
-        $sql = "select sum(ALB_PRIX*ARTPAN_QUANTITE) as prixTotal 
-            from T_ARTICLE_PANIER AP join T_ALBUM ALB on AP.ALB_ID=ALB.ALB_ID where CLI_ID=?";
-        $resultat = $this->executerRequete($sql, array($idClient));
-        $ligne = $resultat->fetch();
-        return $ligne['prixTotal'];
-    }
-    
-    public function ajouterAlbum($idClient, $idAlbum)
-    {
-        $sql = "select * from T_ARTICLE_PANIER where CLI_ID=? and ALB_ID=?";
-        $resultat = $this->executerRequete($sql, array($idClient, $idAlbum));
-        if ($resultat->rowCount() > 0) {
-            // album déjà commandé par ce client : on augmente sa quantité de 1
-            $sql = 'update T_ARTICLE_PANIER set ARTPAN_QUANTITE=ARTPAN_QUANTITE+1
-                where CLI_ID=? and ALB_ID=?';
-        }
-        else {
-            // on crée un nouvel article
-            $sql = 'insert into T_ARTICLE_PANIER(CLI_ID, ALB_ID) values (?, ?)';
-        }
-        $this->executerRequete($sql, array($idClient, $idAlbum));
+        $sql = "insert into patient(dateCreation,sexe,nomPatient,pernomPatient,dateNaissancePatient,adressePatient,telephonePatient,emailPatient,cinPatient,Allergie,note,assureur,police,idVille)
+            values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $this->executerRequete($sql,
+            array($dateCreation,$sexe,$nomPatient,$pernomPatient,$dateNaissancePatient,$adressePatient,$telephonePatient,$emailPatient,$cinPatient,$Allergie,$note,$assureur,$police,$idVille));
     }
 
 }

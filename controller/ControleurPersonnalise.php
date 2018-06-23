@@ -1,7 +1,7 @@
 <?php
 
 require_once 'frame/Controleur.php';
-require_once 'model/Patient.php';
+require_once 'model/Rdv.php';
 
 /**
  * Contrôleur abstrait pour les vues devant afficher les infos employe
@@ -24,10 +24,10 @@ abstract class ControleurPersonnalise extends Controleur
             // ... on les récupère ...
             $employe = $this->requete->getSession()->getAttribut("employe");
             // pour les secretaires et doncteur en affiche le nb des patients en salle d'attente
-            $listePoste = array('Dosteur','Secretaire');
-            if (in_array($employe['poste'], $liste)){
-                $patient = new Patient();
-                $nbPatientEnAttente = $patient->getNbPatientEnAttente();
+            $listePoste = array('Docteur','Secretaire');
+            if (in_array($employe['poste'], $listePoste)){
+                $listeRdv = new Rdv();
+                $nbPatientEnAttente = $listeRdv->getNbRdv("en cours");
             }
         }
         // ... et on les ajoute aux données de la vue
